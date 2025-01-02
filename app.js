@@ -2,6 +2,7 @@ const mysql = require("mysql2");
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+require('dotenv').config();
 
 const cors = require("cors");
 
@@ -18,11 +19,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // MySQL database connection (single connection for the entire app)
-var mysqlConnection = mysql.createConnection({
-  user: "mercy", 
-  password: "Mihret1@doms",
-  host: "localhost",
-  database: "mydb", 
+
+const mysqlConnection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 mysqlConnection.connect((err) => {
